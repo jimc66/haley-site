@@ -16,29 +16,34 @@
   (function () {
     const target = document.getElementById('site-navbar');
 
-    function highlightActiveLinks(scope) {
-      // get current file (defaults to index.html for /)
-      const file = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    function normalize(pathOrHref) {
+      // lower, no protocol/host, no leading slash, no query/hash
+      let s = String(pathOrHref).toLowerCase().split('#')[0].split('?')[0].replace(/^\//, '');
+      // take last segment only (handles subdirs)
+      s = s.split('/').pop();
+      // drop .html and trailing slashes
+      s = s.replace(/\.html$/, '').replace(/\/+$/, '');
+      // default to 'index' if empty
+      return s || 'index';
+    }
 
-      // mark all matching links active (both mobile + desktop menus)
+    function highlightActiveLinks(scope) {
+      const current = normalize(location.pathname);
       scope.querySelectorAll('a[href]').forEach(a => {
-        const href = a.getAttribute('href').split('#')[0].toLowerCase();
-        if (href === file) a.classList.add('active');
+        const href = a.getAttribute('href');
+        if (!href) return;
+        const normalized = normalize(href);
+        if (normalized === current) a.classList.add('active');
       });
     }
 
     fetch('partials/navbar.html')
       .then(r => r.text())
-      .then(html => {
-        target.innerHTML = html;             // inject navbar
-        highlightActiveLinks(target);        // now it exists → highlight
-      })
-      .catch(() => {
-        target.innerHTML = '<div class="p-2 text-sm text-error">Nav failed to load</div>';
-      });
+      .then(html => { target.innerHTML = html; highlightActiveLinks(target); })
+      .catch(() => { target.innerHTML = '<div class="p-2 text-sm text-error">Nav failed to load</div>'; });
   })();
 </script>
-v>
+
 
   <main class="p-4 max-w-4xl mx-auto">
 <h1 class="text-3xl font-bold mb-4">Travel</h1>
