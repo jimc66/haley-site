@@ -2,6 +2,8 @@
 
 This is a static site built to celebrate Haley — a retired racing greyhound with adventures across Massachusetts and New England.
 
+Enjoy
+
 ---
 
 ## 🌐 Site Overview
