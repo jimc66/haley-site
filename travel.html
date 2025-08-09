@@ -9,24 +9,41 @@
   <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body class="bg-gray-50 text-gray-800">
-  <div class="navbar bg-base-100 rounded-t-lg shadow-md">
-  <div class="navbar-start">
-    <a class="btn btn-ghost text-xl">Haley 🐾</a>
-  </div>
-  <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal px-1">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="north_end.html">North End</a></li>
-      <li><a href="natick.html">Natick</a></li>
-      <li><a href="cape_cod.html">Cape Cod</a></li>
-      <li><a href="travel.html">Travel</a></li>
-      <li><a href="holidays.html">Holidays</a></li>
-      <li><a href="friends.html">Friends</a></li>
-      <li><a href="silly_pics.html">Silly Pics</a></li>
-      <li><a href="backstory.html">Backstory</a></li>
-    </ul>
-  </div>
-</div>
+  <div id="site-navbar"></div>
+  <!-- Menu stuff in script so that it can be updated in one spot -->
+  <!--  vs being on every page -->
+<script>
+  (function () {
+    const target = document.getElementById('site-navbar');
+
+    function normalize(pathOrHref) {
+      // lower, no protocol/host, no leading slash, no query/hash
+      let s = String(pathOrHref).toLowerCase().split('#')[0].split('?')[0].replace(/^\//, '');
+      // take last segment only (handles subdirs)
+      s = s.split('/').pop();
+      // drop .html and trailing slashes
+      s = s.replace(/\.html$/, '').replace(/\/+$/, '');
+      // default to 'index' if empty
+      return s || 'index';
+    }
+
+    function highlightActiveLinks(scope) {
+      const current = normalize(location.pathname);
+      scope.querySelectorAll('a[href]').forEach(a => {
+        const href = a.getAttribute('href');
+        if (!href) return;
+        const normalized = normalize(href);
+        if (normalized === current) a.classList.add('active');
+      });
+    }
+
+    fetch('partials/navbar.html')
+      .then(r => r.text())
+      .then(html => { target.innerHTML = html; highlightActiveLinks(target); })
+      .catch(() => { target.innerHTML = '<div class="p-2 text-sm text-error">Nav failed to load</div>'; });
+  })();
+</script>
+
 
   <main class="p-4 max-w-4xl mx-auto">
 <h1 class="text-3xl font-bold mb-4">Travel</h1>
