@@ -32,7 +32,7 @@ Each section references one or more images via paths like `assets/natick_image01
 |----------------|----------------------|----------------------------------|
 | **Frontend**   | Tailwind CSS + DaisyUI | Styling & layout |
 | **Hosting**    | Cloudflare Pages      | Free, fast static site deploys   |
-| **Dev Server** | Local browser / Vite (optional) | Preview and edit locally       |
+| **Dev Server** | Local browser / LiveServer or Vite (optional) | Preview and edit locally       |
 | **Images**     | Extracted and optimized JPGs | Sourced from a PowerPoint file |
 
 ---
@@ -70,6 +70,7 @@ You can:
 # Python 3.x
 python -m http.server
 ```
+#### in VSCode using liveserver is pretty easy too
 
 ### Optional: Use Vite + Tailwind (advanced)
 
