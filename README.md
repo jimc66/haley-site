@@ -106,6 +106,15 @@ This repository uses a two-branch deployment strategy with Cloudflare Pages:
 
 **Build Settings:** No build command, no install command. Cloudflare Pages serves files directly from the repository root.
 
+### Web Analytics
+
+**Cloudflare Web Analytics is automatically enabled** for this site. Cloudflare Pages auto-injects the analytics script during deployment - no code changes required.
+
+- **Tracking:** Production site only (www.haleythegreyhound.com)
+- **Privacy:** Cookie-free, GDPR compliant
+- **Dashboard:** Available in Cloudflare Dashboard → Analytics & logs → Web analytics
+- **Implementation:** Automatic injection by Cloudflare Pages (visible in page source after deployment)
+
 ---
 
 ## ✏️ Notes & Best Practices

@@ -85,6 +85,17 @@ git push origin main  # Triggers production deployment
 
 Cloudflare Pages serves files directly from the repository root with no build command or processing.
 
+### Web Analytics
+**Cloudflare Web Analytics is automatically enabled** for this site. Cloudflare Pages auto-injects the analytics tracking script at deployment time - you will NOT see it in the source HTML files, but it will appear in the deployed page source.
+
+- Analytics script is injected automatically by Cloudflare Pages
+- No code changes needed in HTML files
+- Only tracks production site (www.haleythegreyhound.com)
+- Cookie-free and GDPR compliant
+- Access analytics in Cloudflare Dashboard → Analytics & logs → Web analytics
+
+**Important:** Do not manually add Cloudflare analytics scripts to the HTML files - Cloudflare handles this automatically.
+
 ## Key Conventions
 
 ### HTML Page Template
