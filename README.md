@@ -32,7 +32,7 @@ Each section references one or more images via paths like `assets/natick_image01
 |----------------|----------------------|----------------------------------|
 | **Frontend**   | Tailwind CSS + DaisyUI (via CDN) | Styling & layout |
 | **Hosting**    | Cloudflare Pages      | Free, fast static site deploys   |
-| **Dev Server** | Python HTTP server or similar | Preview locally       |
+| **Dev Server** | VS Code Live Server | Preview locally with auto-reload |
 | **Images**     | Optimized JPG files | Sourced from a PowerPoint file |
 | **Navigation** | Vanilla JavaScript + Fetch API | Dynamic navbar loading |
 
