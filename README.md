@@ -30,10 +30,11 @@ Each section references one or more images via paths like `assets/natick_image01
 
 | Layer          | Tool/Service         | Purpose                          |
 |----------------|----------------------|----------------------------------|
-| **Frontend**   | Tailwind CSS + DaisyUI | Styling & layout |
+| **Frontend**   | Tailwind CSS + DaisyUI (via CDN) | Styling & layout |
 | **Hosting**    | Cloudflare Pages      | Free, fast static site deploys   |
-| **Dev Server** | Local browser / LiveServer or Vite (optional) | Preview and edit locally       |
-| **Images**     | Extracted and optimized JPGs | Sourced from a PowerPoint file |
+| **Dev Server** | VS Code Live Server | Preview locally with auto-reload |
+| **Images**     | Optimized JPG files | Sourced from a PowerPoint file |
+| **Navigation** | Vanilla JavaScript + Fetch API | Dynamic navbar loading |
 
 ---
 
@@ -41,54 +42,78 @@ Each section references one or more images via paths like `assets/natick_image01
 
 ```
 haley-site/
-├── index.html
+├── index.html              # Home page
+├── north_end.html          # All other pages follow same pattern
+├── natick.html
 ├── cape_cod.html
 ├── travel.html
+├── holidays.html
 ├── friends.html
-├── ...
+├── silly_pics.html
+├── backstory.html
+├── partials/
+│   └── navbar.html         # Centralized navigation (loaded by all pages)
 ├── css/
-│   └── styles.css
+│   └── styles.css          # Custom styles (currently minimal)
 ├── assets/
-│   └── *.jpg (image files)
+│   ├── *.jpg               # Page images
+│   └── favicon files       # Favicon and icons
 ```
 
-> 📁 Place all optimized images into `assets/` before running or deploying.
+> 📁 The `partials/navbar.html` file is dynamically loaded by JavaScript on each page for centralized navigation management.
 
 ---
 
 ## ⚙️ Setup & Editing
 
-This site is **static HTML** with CDN-loaded Tailwind + DaisyUI. You don’t need a build tool.
+This site is **100% static HTML** with CDN-loaded Tailwind + DaisyUI. **No build step, no compilation, no npm dependencies.**
 
-### Local Editing
+### Local Development
 
-You can:
-- Open `index.html` directly in a browser
-- Or serve via a simple web server:
+Use VS Code with the Live Server extension for local preview:
 
-```bash
-# Python 3.x
-python -m http.server
-```
-#### in VSCode using liveserver is pretty easy too
+1. Open the project in VS Code
+2. Right-click any `.html` file and select "Open with Live Server"
+3. The site will open in your browser with auto-reload on changes
 
-### Optional: Use Vite + Tailwind (advanced)
+**Alternative:** You can use any simple web server (e.g., `python -m http.server`)
 
-```bash
-npm install
-npm run dev
-```
-
-Use this if you want to customize Tailwind or DaisyUI themes, or add interactive JS.
+**Note:** You need a local server (not just opening files directly) due to CORS restrictions on the navbar fetch.
 
 ---
 
-## 🚀 Deploying to Cloudflare Pages
+## 🚀 Deployment
 
-1. Connect the repo or upload ZIP to Cloudflare Pages
-2. No build command needed
-3. Use the default root (`/`) for deployment
-4. Make sure all `.html` and `assets/` files are included
+This repository uses a two-branch deployment strategy with Cloudflare Pages:
+
+### Staging Environment
+- **Branch:** `stage`
+- **Cloudflare Project:** `haley-site-stage`
+- **URL:** https://stage.haleythegreyhound.com
+- **Purpose:** Test changes before production
+
+### Production Environment
+- **Branch:** `main`
+- **Cloudflare Project:** `haley-site`
+- **URL:** https://www.haleythegreyhound.com
+- **Purpose:** Live site
+
+### Deployment Workflow
+1. Create a feature branch for changes
+2. Merge to `stage` branch and push → auto-deploys to staging
+3. Test on stage.haleythegreyhound.com
+4. Merge `stage` to `main` and push → auto-deploys to production
+
+**Build Settings:** No build command, no install command. Cloudflare Pages serves files directly from the repository root.
+
+### Web Analytics
+
+**Cloudflare Web Analytics is automatically enabled** for this site. Cloudflare Pages auto-injects the analytics script during deployment - no code changes required.
+
+- **Tracking:** Production site only (www.haleythegreyhound.com)
+- **Privacy:** Cookie-free, GDPR compliant
+- **Dashboard:** Available in Cloudflare Dashboard → Analytics & logs → Web analytics
+- **Implementation:** Automatic injection by Cloudflare Pages (visible in page source after deployment)
 
 ---
 
